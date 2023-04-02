@@ -24,6 +24,44 @@ public class CardCounter{
   }
   
   public void updateCounter(String card){
-    
+    int column = getColumn(card);
+    int row = getRow(card, column);
+    counter[row][column] -= 1;
+    printCounter();
+  }
+  private int getColumn(String card){
+    for (int i =0; i < colors.length; i++){
+      if (card.substring(0,1).equals(colors[i])){
+        return i;
+      }
+    }
+      return 4;
+  }
+  private int getRow(String card, int column){
+    if (column == 4){
+      if (card.charAt(0)=='+'){
+        return 0;
+      }else {
+        return 1;
+      }
+    }else if (card.charAt(1)=='+'){
+      return 10;
+    }else if (card.charAt(1)=='s'){
+      return 11;
+    }else if (card.charAt(1)=='r'){
+      return 12;
+    }else{
+      System.out.println(Integer.valueOf(card.substring(1,2)));
+      return Integer.valueOf(card.substring(1,2));
+    }
+  }
+  private void printCounter(){
+    System.out.println("cards left are");
+    for (int i = 0; i < counter.length; i++){
+      for (int j = 0; j < counter[i].length; j++){
+        System.out.print(counter[i][j] + " ");
+      }
+      System.out.println();
+    }
   }
 }

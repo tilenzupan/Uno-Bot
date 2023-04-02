@@ -8,6 +8,7 @@ public class Game{
     public Game(){
       int randPos = 0;
       String tempCard;
+      boolean valid = false;
         for (int i = 0; i < 4; i++){ //runs for each color
           for (int k = 0; k < 10; k++){//runs for each number
             randPos = (int)(Math.random()*deck.size());
@@ -47,6 +48,13 @@ public class Game{
         }
 
         System.out.println("The game has started. ");
+        while(!valid){
+          discard(deck.remove(0));
+          if (discard.get(0).charAt(0) != '+' && Character.isDigit(discard.get(0).charAt(1))){
+            valid = true;
+          }
+        }
+        System.out.println("The card on top is "+discard.get(0));
         System.out.println(deck);
         System.out.println(deck.size());
     }
@@ -56,5 +64,19 @@ public class Game{
         p.addCard(deck.get(0));
         deck.remove(0);
       }
+    }
+
+    public ArrayList<String> getDiscard(){
+      return discard;
+    }
+    public void discard(String card){
+      Main.deck.updateCounter(card);
+      discard.add(0,card);
+    }
+    public boolean isValid(String card){
+      return false;
+    }
+    public String draw(){
+      return deck.remove(0);
     }
 }

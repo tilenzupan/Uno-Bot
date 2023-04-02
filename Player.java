@@ -10,4 +10,7 @@ public class Player {
     public ArrayList<String> getCards(){
         return cards;
     }
+    public String playCard(int card){
+        return cards.remove(card);
+    }
 }
