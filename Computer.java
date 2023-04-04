@@ -1,6 +1,6 @@
-public class CardCounter{
+public class Computer extends Player{
 	private String[] colors = {"R","Y", "G", "B"};
-  private int[][] counter = {//counts uno cards left. rows are numbers columns are colors
+    private int[][] counter = {//counts uno cards left. rows are numbers columns are colors
     {1, 1, 1, 1, 4},//0 and +4
     {2, 2, 2, 2, 4},//1 and wild card
     {2, 2, 2, 2, 0},//2
@@ -14,10 +14,10 @@ public class CardCounter{
     {2, 2, 2, 2, 0},//+2's
     {2, 2, 2, 2, 0},//skips
     {2, 2, 2, 2, 0}//reverses
-  };
+    };
   
-  public CardCounter(){
-
+  public Computer(int n, Cards crd){
+    super(n, crd);
   }
   public int[][] getCounter(){
     return counter;

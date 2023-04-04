@@ -1,14 +1,16 @@
 import java.util.*;
 
-public class Game{
-    private ArrayList<String> deck = new ArrayList();
-    private ArrayList<String> discard = new ArrayList();
-    private String[] colors = {"R","Y", "G", "B"};
+public class Cards{
+      private ArrayList<String> deck = new ArrayList<>();
+      private ArrayList<String> discard = new ArrayList<>();
+      private String topCard;
 
-    public Game(){
-      int randPos = 0;
-      String tempCard;
-      boolean valid = false;
+      public Cards(){
+        int randPos = 0;
+        String tempCard;
+        boolean valid = false;
+        String[] colors = {"R","Y", "G", "B"};
+        //creates deck-------------------------------------------------------------------------------------------------------------------------
         for (int i = 0; i < 4; i++){ //runs for each color
           for (int k = 0; k < 10; k++){//runs for each number
             randPos = (int)(Math.random()*deck.size());
@@ -46,37 +48,42 @@ public class Game{
           tempCard = "wild";
           deck.add(randPos, tempCard);
         }
-
-        System.out.println("The game has started. ");
-        while(!valid){
-          discard(deck.remove(0));
-          if (discard.get(0).charAt(0) != '+' && Character.isDigit(discard.get(0).charAt(1))){
-            valid = true;
-          }
-        }
-        System.out.println("The card on top is "+discard.get(0));
-        System.out.println(deck);
-        System.out.println(deck.size());
     }
 
-    public void createPlayer(Player p){//creates a player and gives them cards
-      for (int i = 0; i< 7; i++){
-        p.addCard(deck.get(0));
-        deck.remove(0);
-      }
-    }
 
+    public ArrayList<String> getDeck(){
+        return deck;
+    }
     public ArrayList<String> getDiscard(){
-      return discard;
+        return discard;
+    }
+    public String getTopCard(){
+        return topCard;
     }
     public void discard(String card){
-      Main.deck.updateCounter(card);
       discard.add(0,card);
+      topCard = discard.get(0);
     }
     public boolean isValid(String card){
-      return false;
+      if(card.indexOf("wild")>=0||card.indexOf("+4")>=0){
+        return true;
+      }else if (card.substring(0,1).equals(topCard.substring(0,1))){
+        return true;
+      }else if (card.substring(1,2).equals(topCard.substring(1,2))){
+        return true;
+      }else{
+        System.out.println(topCard);
+        return false;
+      }
     }
     public String draw(){
       return deck.remove(0);
+    }
+    public boolean isSpecial(String str){
+        boolean result = false;
+        if (!(str.charAt(0) != '+' && Character.isDigit(str.charAt(1)))){
+            result = true;
+        }
+        return result;
     }
 }
